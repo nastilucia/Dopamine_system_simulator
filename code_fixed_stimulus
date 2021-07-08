@@ -14,10 +14,10 @@ class User(object):
     DELTA = 0.0001
 
     def __init__(self, id, d=0.2, m=0):
-        self._id = int(id)
-        self._d = float(d)
-        self._m = float(m)
-        self._r = 0
+        self._id = int(id) #user id
+        self._d = float(d) #dopamine level
+        self._m = float(m) #memory
+        self._r = 0 #stimulus = reward
         self._dip = 0
         self._propensity_factor = 0.2
         self._count_mess_sent = 0
@@ -39,7 +39,7 @@ class User(object):
         cdef float r = u._r
 
         for i in range(n_rounds):
-            d = d + (( -d + COMP_STIM(d, m, r, THRESHOLD) + K)* DELTA * 0.3 )
+            d = d + (( -d + COMP_STIM(d, m, r, THRESHOLD) + K)* DELTA * 0.3 ) 
             m = m + (( -m + COMP_RECA(m, r)) * DELTA * 0.3 )          
 
         u._d = d
@@ -47,7 +47,7 @@ class User(object):
         u._r = r
 
     @staticmethod
-    def _compute_stimulus(d, m, r, threshold): #
+    def _compute_stimulus(d, m, r, threshold): 
         cdef float diff = r - m
         if -30 <= diff < threshold:
             return 0.0
